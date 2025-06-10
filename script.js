@@ -11,43 +11,38 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Create the <li> element and set its textContent
+        // Create <li> and set its textContent to taskText
         const listItem = document.createElement('li');
         listItem.textContent = taskText;
 
-        // Create the remove button
+        // Create remove button
         const removeButton = document.createElement('button');
         removeButton.textContent = "Remove";
-        removeButton.className = 'remove-btn';
+        removeButton.classList.add('remove-btn'); // <- Correct method used
 
-        // Set up the remove action
+        // Set up remove behavior
         removeButton.onclick = function () {
             taskList.removeChild(listItem);
         };
 
-        // Append the button — we must preserve textContent, so re-wrap it
-        // Step: Wrap current textContent in a span
+        // Wrap original text in a span to preserve it
         const taskSpan = document.createElement('span');
         taskSpan.textContent = listItem.textContent;
 
-        // Clear listItem content (textContent erases all)
+        // Clear the listItem and append span + button
         listItem.textContent = '';
-
-        // Add text and button
         listItem.appendChild(taskSpan);
         listItem.appendChild(removeButton);
 
-        // Append to the list
+        // Append to list
         taskList.appendChild(listItem);
 
-        // Clear the input
-        taskInput.value = "";
+        // Clear input
+        taskInput.value = '';
     }
 
-    // Button click adds task
+    // Event listeners
     addButton.addEventListener('click', addTask);
-
-    // Pressing Enter adds task
     taskInput.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             addTask();
